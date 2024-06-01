@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import gsap from "gsap";
 // import GUI from "lil-gui";
 // const gui = new GUI();
 // import typefaceFont from "./public/fonts/helvetiker_regular.typeface.json";
@@ -60,6 +61,9 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
   const heartGeometry = new THREE.ShapeGeometry(heartShape);
   material.side = THREE.DoubleSide;
 
+  const clock = new THREE.Clock();
+  const elapsedTime = clock.getElapsedTime();
+
   for (let i = 0; i < 300; i++) {
     const heart = new THREE.Mesh(heartGeometry, material);
     heart.position.x = (Math.random() - 0.5) * 280;
@@ -69,7 +73,7 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
     heart.rotation.x = Math.random() * Math.PI;
     heart.rotation.y = Math.random() * Math.PI;
 
-    const scale = Math.random();
+    const scale = Math.random() * 0.7;
     heart.scale.set(scale, scale, scale);
 
     scene.add(heart);
@@ -85,7 +89,9 @@ const sizes = {
 };
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 50;
+camera.position.z = 80;
+
+// gsap.fromTo(camera.position, { z: 40 }, { z: 50, duration: 1 });
 
 // Renderer
 const canvas = document.querySelector("canvas.webgl");
@@ -97,6 +103,8 @@ renderer.setSize(sizes.width, sizes.height);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 2;
 
 // FullScreen
 window.addEventListener("dblclick", () => {
