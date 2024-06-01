@@ -9,10 +9,6 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 // Creating Scene
 const scene = new THREE.Scene();
 
-// AxesLoader
-const axesHelper = new THREE.AxesHelper();
-scene.add(axesHelper);
-
 // Textures
 const textureLoader = new THREE.TextureLoader();
 const matcapTexture = textureLoader.load("/textures/matcaps/8.png");
